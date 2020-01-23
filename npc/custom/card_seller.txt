@@ -51,7 +51,7 @@ OnInit:
 			for ( .@j = 0; .@j < .@nb; .@j++ ) {
 				if (callfunc( "F_IsCharm", .@id[.@j] ) == true)// Skip enchants in case someone added them as card drop
 					continue;
-				npcshopadditem "card_mob#"+ .@alphabet$[.@i], .@id[.@j], 1000000;
+				npcshopadditem "card_mob#"+ .@alphabet$[.@i], .@id[.@j], 2000000;
 			}
 		}
 	}
