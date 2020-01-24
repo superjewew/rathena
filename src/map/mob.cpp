@@ -2986,7 +2986,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 			}
 
 			if (sd->status.party_id)
-				map_foreachinallrange(quest_update_objective_sub, &md->bl, QUEST_AREA_SIZE, BL_PC, sd->status.party_id, md->mob_id);
+				map_foreachinallrange(quest_update_objective_sub, &md->bl, AREA_SIZE, BL_PC, sd->status.party_id, md->mob_id);
 			else if (sd->avail_quests)
 				quest_update_objective(sd, md->mob_id);
 

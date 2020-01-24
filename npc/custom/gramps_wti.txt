@@ -442,3 +442,21 @@ OnInit:
 epay_dun00l,22,186,3	duplicate(Return to Eden#template)	Return to Eden#paydun00l	707
 egef_dun03m,136,117,3	duplicate(Return to Eden#template)	Return to Eden#gefdun03m	707
 emos_dun02h,155,44,3	duplicate(Return to Eden#template)	Return to Eden#mosdun02h	707
+
+//==================================================
+// 70 ~ 100
+//==================================================
+epay_dun00l,0,0,0,0	monster	Bathory	1102,50,0,0,0
+epay_dun00l,0,0,0,0	monster	Waste Stove	1617,50,0,0,0
+
+//==================================================
+// 101 ~ 125
+//==================================================
+egef_dun03m,0,0,0,0	monster	Isilla	1772,50,0,0,0
+egef_dun03m,0,0,0,0	monster	Wanderman	1208,50,0,0,0
+
+//==================================================
+// 126 ~ 150
+//==================================================
+emos_dun02h,0,0,0,0	monster	Acidus	1716,50,0,0,0
+emos_dun02h,0,0,0,0	monster	Whikebain	1653,50,0,0,0
