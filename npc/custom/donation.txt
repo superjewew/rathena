@@ -52,7 +52,7 @@ prontera,147,170,5	script	Donation NPC	807,{
 				}
 				mes .@npc_name$;
 				mes "Enter Item Code:";
-				input @donate_item_code;
+				input @donate_item_name$;
 				next;
 				mes .@npc_name$;
 				mes "Enter Item Amount:";
@@ -61,12 +61,12 @@ prontera,147,170,5	script	Donation NPC	807,{
 				mes .@npc_name$;
 				mes "Coupon added.";
 				
-				query_sql "INSERT INTO `donate` (`code`,`item_code`,`item_amount`,`validation_code`,`status`) VALUES ('"+@new_donation$+"', "+@donate_item_code+", "+@donate_amount+", '"+@new_validation$+"' , '"+.@stats$+"')";
+				query_sql "INSERT INTO `donate` (`code`,`item_name`,`item_amount`,`validation_code`,`status`) VALUES ('"+@new_donation$+"', "+@donate_item_name$+", "+@donate_amount+", '"+@new_validation$+"' , '"+.@stats$+"')";
 				set @new_donation$, "";
 				set @new_validation$, "";
 				next;		
 				mes "This is the list of code logs";
-				query_sql "SELECT `code` , `item_code` , `item_amount` , `validation_code` , `status` FROM `donate` ORDER BY `code` DESC", .@codelist$, .@itemcodes$, .@status$, .@validation$;
+				query_sql "SELECT `code` , `item_name` , `item_amount` , `validation_code` , `status` FROM `donate` ORDER BY `code` DESC", .@codelist$, .@itemcodes$, .@status$, .@validation$;
 				if(.@codelist)
 				{
 					mes .@npcname$;
@@ -138,13 +138,13 @@ PlayerPanel:
 			{
 				if( .itemORcash == 0)
 				{
-					query_sql "SELECT `item_code` , `item_amount` FROM `donate` WHERE `code` = '"+@donate_code$+"'", @Donation_Item$, @Donation_Code$;
+					query_sql "SELECT `item_name` , `item_amount` FROM `donate` WHERE `code` = '"+@donate_code$+"'", @Donation_Item$, @Donation_Code;
 					mes .@npc_name$;
-					mes "You get ^0000FF" + getitemname(@Donation_Item$) + " - " + @Donation_Code$ + " ea.^000000";
+					mes "You get ^0000FF" + getitemname(@Donation_Item$) + " - " + @Donation_Code + " ea.^000000";
 					query_sql "UPDATE `donate` SET `status`=1 WHERE `code`='"+@donate_code$+"'";
 					close2;
 					//query_sql "DELETE FROM `donate` WHERE `code`='"+@donate_code$+"'";
-					getitem @Donation_Item$,@Donation_Code$;
+					getitem @Donation_Item$,@Donation_Code;
 					end;
 				}
 				else
@@ -176,7 +176,7 @@ PlayerPanel:
 // ============================================ //
 
 OnInit:
-	query_sql "CREATE TABLE IF NOT EXISTS `donate` (`code` TINYTEXT NOT NULL, `item_code` INT NOT NULL, `item_amount` INT NOT NULL, `validation_code` TEXT NOT NULL, `status` TEXT NOT NULL, INDEX `code` (`code`(32)) ) ENGINE=MyISAM";
+	query_sql "CREATE TABLE IF NOT EXISTS `donate` (`code` TINYTEXT NOT NULL, `item_name` TEXT NOT NULL, `item_amount` INT NOT NULL, `validation_code` TEXT NOT NULL, `status` TEXT NOT NULL, INDEX `code` (`code`(32)) ) ENGINE=MyISAM";
 	query_sql "CREATE TABLE IF NOT EXISTS `donation` (`name` TEXT NOT NULL, `code` TEXT NOT NULL, `item_amount` INT NOT NULL, `validation_code` TEXT NOT NULL, INDEX `code` (`code`(32)) ) ENGINE=MyISAM";
 
 }
