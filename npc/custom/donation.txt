@@ -144,7 +144,7 @@ PlayerPanel:
 					query_sql "UPDATE `donate` SET `status`=1 WHERE `code`='"+@donate_code$+"'";
 					close2;
 					//query_sql "DELETE FROM `donate` WHERE `code`='"+@donate_code$+"'";
-					getitem @Donation_Item$,@Donation_Code;
+					getitembound @Donation_Item$,@Donation_Code,1;
 					end;
 				}
 				else
