@@ -11,7 +11,7 @@ prontera,147,170,5	script	Donation NPC	807,{
 // === Configuration ========================== //
 	set .gms_level, 99;
 	set .code_length,10; // Length for the Donation Code
-	set .code_length2,6; // Length for the Validation Code
+	set .code_length2,3; // Length for the Validation Code
 	set .donate_item, 7179; // Donation Item
 	set .@itemORcash, 0; // 0 for Item or 1 for Cash Point
 	set .@npc_name$, "Donation Npc";
