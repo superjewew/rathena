@@ -61,7 +61,7 @@ prontera,147,170,5	script	Donation NPC	807,{
 				mes .@npc_name$;
 				mes "Coupon added.";
 				
-				query_sql "INSERT INTO `donate` (`code`,`item_name`,`item_amount`,`validation_code`,`status`) VALUES ('"+@new_donation$+"', "+@donate_item_name$+", "+@donate_amount+", '"+@new_validation$+"' , '"+.@stats$+"')";
+				query_sql "INSERT INTO `donate` (`code`,`item_name`,`item_amount`,`validation_code`,`status`) VALUES ('"+@new_donation$+"', '"+@donate_item_name$+"', "+@donate_amount+", '"+@new_validation$+"' , '"+.@stats$+"')";
 				set @new_donation$, "";
 				set @new_validation$, "";
 				next;		
