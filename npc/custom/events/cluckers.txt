@@ -41,7 +41,7 @@ prontera,156,219,4	script	Cluckers	800,{
 			case 12: sc_start SC_Stun,10000,0; break;
 			case 13: unitkill getcharid(3); skilleffect "NPC_SELFDESTRUCTION",1; break;
 			default:
-				if (rand(50) < 4) {
+				if (rand(50) < 3) {
 					npctalk "Cluckers : WOOF!...........";
 					specialeffect2 EF_SPHERE;
 					announce "[Cluck! Cluck! Boom!] " + strcharinfo(0) + " squeezed out the prize! Well done!",0;
