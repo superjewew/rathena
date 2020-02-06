@@ -3323,7 +3323,7 @@ static void battle_calc_multi_attack(struct Damage* wd, struct block_list *src,s
 			if (sc && sc->data[SC_KAGEMUSYA])
 				max_rate = sc->data[SC_KAGEMUSYA]->val1 * 10; // Same rate as even levels of TF_DOUBLE
 			else
-				max_rate = max(5 * skill_lv, sd->bonus.double_rate);
+				max_rate = max(7 * skill_lv, sd->bonus.double_rate);
 
 			if( rnd()%100 < max_rate ) {
 				wd->div_ = skill_get_num(TF_DOUBLE,skill_lv?skill_lv:1);
@@ -3854,8 +3854,8 @@ static int battle_calc_attack_skill_ratio(struct Damage* wd, struct block_list *
 			RE_LVL_DMOD(150); // Base level bonus.
 			break;
 		case GC_CROSSIMPACT:
-			skillratio += 900 + 100 * skill_lv;
-			RE_LVL_DMOD(120);
+			skillratio += 900 + 150 * skill_lv;
+			RE_LVL_DMOD(100);
 			break;
 		case GC_COUNTERSLASH:
 			//ATK [{(Skill Level x 100) + 300} x Caster's Base Level / 120]% + ATK [(AGI x 2) + (Caster's Job Level x 4)]%
@@ -3869,14 +3869,14 @@ static int battle_calc_attack_skill_ratio(struct Damage* wd, struct block_list *
 			skillratio += 200;
 			break;
 		case GC_ROLLINGCUTTER:
-			skillratio += -50 + 50 * skill_lv;
+			skillratio += -50 + 80 * skill_lv;
 			RE_LVL_DMOD(100);
 			break;
 		case GC_CROSSRIPPERSLASHER:
 			skillratio += 300 + 80 * skill_lv;
 			RE_LVL_DMOD(100);
 			if (sc && sc->data[SC_ROLLINGCUTTER])
-				skillratio += sc->data[SC_ROLLINGCUTTER]->val1 * status_get_agi(src);
+				skillratio += sc->data[SC_ROLLINGCUTTER]->val1 * 200 + (status_get_agi(src) * 3);
 			break;
 		case GC_DARKCROW:
 			skillratio += 100 * (skill_lv - 1);
@@ -4543,8 +4543,8 @@ static void battle_attack_sc_bonus(struct Damage* wd, struct block_list *src, st
 					// Renewal EDP formula [helvetica]
 					// weapon atk * (1 + (edp level * .8))
 					// equip atk * (1 + (edp level * .6))
-					ATK_RATE(wd->weaponAtk, wd->weaponAtk2, 100 + (sc->data[SC_EDP]->val1 * 80));
-					ATK_RATE(wd->equipAtk, wd->equipAtk2, 100 + (sc->data[SC_EDP]->val1 * 60));
+					ATK_RATE(wd->weaponAtk, wd->weaponAtk2, 100 + (sc->data[SC_EDP]->val1 * 100));
+					ATK_RATE(wd->equipAtk, wd->equipAtk2, 100 + (sc->data[SC_EDP]->val1 * 80));
 					break;
 #else
 				default:
