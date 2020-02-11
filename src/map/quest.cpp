@@ -241,50 +241,29 @@ int quest_delete(TBL_PC *sd, int quest_id)
 }
 
 /**
- * Check if quest is an Eden quest or not.
- * @param quest_id: Quest ID
- */
-bool check_eden_quest(int quest_id)
-{
-	if (quest_id >= 7128 && quest_id <= 7159) return true; // Instructur Boya Quest
-	if (quest_id >= 7214 && quest_id <= 7237) return true; // Instructur Ur Quest
-	if (quest_id >= 13002 && quest_id <= 13049) return true; // Eden 100-110
-	if (quest_id >= 13067 && quest_id <= 13100) return true; // Eden 111-120
-	if (quest_id >= 13107 && quest_id <= 13142) return true; // Eden 121-130
-	if (quest_id >= 13143 && quest_id <= 13168) return true; // Eden 131-140
-
-	return false;
-}
-
-/**
  * Map iterator subroutine to update quest objectives for a party after killing a monster.
  * @see map_foreachinrange
  * @param ap : Argument list, expecting:
  *   int Party ID
- *   struct mob_data *md
+ *   int Mob ID
  */
 int quest_update_objective_sub(struct block_list *bl, va_list ap)
 {
 	struct map_session_data *sd;
-	struct mob_data *md;
-	int mob_id, party_id, dx, dy;
+	int mob_id, party_id;
 
 	nullpo_ret(bl);
 	nullpo_ret(sd = (struct map_session_data *)bl);
 
 	party_id = va_arg(ap,int);
-	md = va_arg(ap, struct mob_data*);
-
-	mob_id = md->mob_id;
-	dx = sd->bl.x - md->bl.x;
-	dy = sd->bl.y - md->bl.y;
+	mob_id = va_arg(ap,int);
 
 	if( !sd->avail_quests )
 		return 0;
 	if( sd->status.party_id != party_id )
 		return 0;
 
-	quest_update_objective(sd, mob_id, dx, dy);
+	quest_update_objective(sd, mob_id);
 
 	return 1;
 }
@@ -293,10 +272,8 @@ int quest_update_objective_sub(struct block_list *bl, va_list ap)
  * Updates the quest objectives for a character after killing a monster, including the handling of quest-granted drops.
  * @param sd : Character's data
  * @param mob_id : Monster ID
- * @param dx : x distance from character to mob
- * @param dy : y distance from character to mob
  */
-void quest_update_objective(TBL_PC *sd, int mob_id, int dx, int dy)
+void quest_update_objective(TBL_PC *sd, int mob_id)
 {
 	int i, j;
 
@@ -304,13 +281,6 @@ void quest_update_objective(TBL_PC *sd, int mob_id, int dx, int dy)
 		struct quest_db *qi = NULL;
 
 		if( sd->quest_log[i].state == Q_COMPLETE ) // Skip complete quests
-			continue;
-			
-		// Skip if distance to mob is outside of the quest area size
-		bool is_eden_quest = check_eden_quest(sd->quest_log[i].quest_id);
-		if (is_eden_quest && !check_distance((dx / map_get_blocksize()), (dy / map_get_blocksize()), QUEST_EDEN_AREA_SIZE))
-			continue;
-		if (!is_eden_quest && !check_distance((dx / map_get_blocksize()), (dy / map_get_blocksize()), QUEST_AREA_SIZE))
 			continue;
 
 		qi = quest_search(sd->quest_log[i].quest_id);

@@ -5277,6 +5277,3 @@ int do_init(int argc, char *argv[])
 	return 0;
 }
 
-int map_get_blocksize(void) {
-	return BLOCK_SIZE;
-}
